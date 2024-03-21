@@ -13,7 +13,8 @@ var app = express();
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = process.env.MONGOURL;
+const mongoDB =
+  "mongodb+srv://hatcherbb:dyYFs7LJli47Syys@cluster0.1fsyauh.mongodb.net/local_library?retryWrites=true&w=majority&appName=Cluster0";
 
 main().catch((err) => console.log(err));
 async function main() {
