@@ -17,19 +17,19 @@ router.get("/", book_controller.index);
 router.get("/book/create", book_controller.book_create_get);
 
 // POST request for creating a book
-router.post("book/create", book_controller.book_create_post);
+router.post("/book/create", book_controller.book_create_post);
 
 // GET requrest to delete a book
 router.get("/book/:id/delete", book_controller.book_delete_get);
 
 // POST request to delete a book
-router.get("/book/:id/delete", book_controller.book_delete_post);
+router.post("/book/:id/delete", book_controller.book_delete_post);
 
 // GET request to update a book
 router.get("/book/:id/update", book_controller.book_update_get);
 
 // POST request to update a book
-router.get("/book/:id/update", book_controller.book_update_post);
+router.post("/book/:id/update", book_controller.book_update_post);
 
 // GET request for one book
 router.get("/book/:id", book_controller.book_detail);
