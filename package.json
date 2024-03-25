@@ -2,7 +2,7 @@
   "name": "express-locallibrary-tutorial",
   "version": "0.0.0",
   "engines": {
-    "node": ">=18.17.1"
+    "node": ">=16.x"
   },
   "private": true,
   "scripts": {
@@ -22,7 +22,7 @@
     "helmet": "^7.1.0",
     "http-errors": "~1.6.3",
     "luxon": "^3.4.4",
-    "mongoose": "^8.2.2",
+    "mongoose": "^7.6.10",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11"
   },
