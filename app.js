@@ -3,18 +3,28 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog");
+const compression = require("compression");
+const helmet = require("helmet");
 
 var app = express();
+
+// Set up rate limiter
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 50,
+});
+app.use(limiter);
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB =
-  "mongodb+srv://hatcherbb:dyYFs7LJli47Syys@cluster0.1fsyauh.mongodb.net/local_library?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = process.env.MONGODB_URI;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -25,10 +35,19 @@ async function main() {
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+// Middleware chain
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  })
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
